@@ -26,6 +26,11 @@ const TodoTable = ({ todoList, setTodoList }) => {
     setUpdateTodoDetails(todoToBeUpdated);
   };
 
+  const filteredData =
+    searchText1 === ''
+      ? dataSource
+      : dataSource.filter((todo) => todo.title.includes(searchText1)); 
+
   const columns = [
     {
       title: 'Timestamp',
@@ -141,13 +146,7 @@ const TodoTable = ({ todoList, setTodoList }) => {
         <div>
           <Table
             pagination={{ position: ['bottomCenter'] }}
-            dataSource={dataSource.filter((todo) => {
-              if (searchText1 === '') {
-                return todo;
-              } else if (todo.title.includes(searchText1)) {
-                return todo;
-              }
-            })}
+            dataSource={filteredData}
             columns={columns}
           />
         </div>

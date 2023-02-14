@@ -2,7 +2,6 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import AddTodos from './components/AddTodos';
 import TodoTable from './components/TodoTable';
-import uuid from 'react-uuid';
 
 function App() {
   const [openModel, setOpenModel] = useState(false);
