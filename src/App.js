@@ -1,12 +1,18 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTodos from './components/AddTodos';
+import TodoTable from './components/TodoTable';
+import uuid from 'react-uuid';
 
 function App() {
+  const [openModel, setOpenModel] = useState(false);
   const [todoList, setTodoList] = useState([]);
-  console.log(todoList);
+
+  useEffect(() => {
+    console.log(todoList);
+  }, [todoList]);
   return (
-    <React.Fragment>
+    <>
       {/* Heading */}
       <h1>Todo App</h1>
 
@@ -14,8 +20,11 @@ function App() {
       <AddTodos
         setTodoList={setTodoList}
         todoList={todoList}
+        setOpenModel={setOpenModel}
+        openModel={openModel}
       />
-    </React.Fragment>
+      <TodoTable setTodoList={setTodoList} todoList={todoList} />
+    </>
   );
 }
 

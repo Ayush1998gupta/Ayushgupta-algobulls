@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { Input, Select, DatePicker, Modal } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import TagInput from './Inputs'
+import TagInput from './Inputs';
+import uuid from 'react-uuid';
 
-export default function AddTodos({ todoList, setTodoList }) {
+export default function AddTodos({
+  todoList,
+  setTodoList,
+}) {
   const [formValidity, setFormValidity] = useState(false);
-  const [openModel, setOpenModel] = useState(false);
+   const [openModel, setOpenModel] = useState(false);
   const [openModelTag, setOpenModelTag] = useState(false);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -36,7 +40,7 @@ export default function AddTodos({ todoList, setTodoList }) {
     }
     setDesc(e.target.value);
   };
-  const onChangeHandlerDate = (dateString) => {
+  const onChangeHandlerDate = (date, dateString) => {
     if (new Date(dateString) < new Date()) {
       setDateError('Enter Valid Date');
       setFormValidity(false);
@@ -58,6 +62,7 @@ export default function AddTodos({ todoList, setTodoList }) {
           description: desc,
           due_date: date,
           tag: tags,
+          key: uuid,
           status,
         },
       ]);
@@ -85,9 +90,10 @@ export default function AddTodos({ todoList, setTodoList }) {
       <Modal
         title="Add Task"
         centered
+        closable={false}
+        destroyOnClose={true}
         open={openModel}
         onOk={() => setOpenModel(false)}
-        onCancel={() => setOpenModel(false)}
         footer={null}
         width="400px"
       >
@@ -96,6 +102,7 @@ export default function AddTodos({ todoList, setTodoList }) {
             <div>
               <div>Title</div>
               <Input
+                required
                 value={title}
                 onChange={onChangeHandlerTitle}
                 max={100}
@@ -106,6 +113,7 @@ export default function AddTodos({ todoList, setTodoList }) {
             <div>
               <div>Discription</div>
               <TextArea
+                required
                 value={desc}
                 onChange={onChangeHandlerDesc}
                 rows={4}
@@ -144,7 +152,7 @@ export default function AddTodos({ todoList, setTodoList }) {
                 <Select.Option value="Overdue">Overdue</Select.Option>
               </Select>
             </div>
-            <button type="summit">Summit</button>
+            <button type={formValidity ? 'disabled' : 'submit'}>Summit</button>
           </div>
         </form>
       </Modal>

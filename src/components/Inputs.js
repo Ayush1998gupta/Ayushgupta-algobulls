@@ -18,9 +18,9 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-const TagInput = ({ openModelTag, setOpenModelTag, setTags,tags }) => {
+const TagInput = ({ openModelTag, setOpenModelTag, setTags }) => {
   const onFinish = (values) => {
-       setTags(values);
+       setTags(values.names);
   };
 
   return (
